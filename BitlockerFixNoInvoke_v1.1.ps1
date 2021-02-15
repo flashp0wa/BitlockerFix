@@ -132,12 +132,6 @@ else {
         Write-EventLog -LogName Application -Source $LogSource -EntryType Error -EventId 114 -Message "No solution can be applied, check the computer for further investigation"
     $return = "NeedManualCheck"
 }
-#Log-o-copy
 
-if (($return -eq "NeedManualCheck") -or ($return -eq "TPMDisabled") -or ($return -eq "ResumeProtectionError") -or ($return -eq "EncryptionError")) {
-    Write-EventLog -LogName Application -Source $LogSource -EntryType Information -EventId 111 -Message "Log saved to remotepath"
-    $path = "\\crassccm01\msdeploy$\Bitlocker_Fix_Log\BitlockerFix_${return}_${hostname}.txt"
-        (Get-EventLog -LogName Application -Source $LogSource).message | Out-File -filepath $path -Force
-}
 
 $return | Out-Null
